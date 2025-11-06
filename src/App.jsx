@@ -1,28 +1,27 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import Topbar from './components/Topbar';
+import HeroSpline from './components/HeroSpline';
+import Dashboard from './components/Dashboard';
+import TablesAndForms from './components/TablesAndForms';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [active, setActive] = useState('dashboard');
+  const user = { name: 'A. Pratama', role: 'Admin' };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen bg-[#071522] text-sky-50">
+      <div className="flex">
+        <Sidebar active={active} onSelect={setActive} />
+        <div className="flex-1 min-w-0">
+          <Topbar user={user} />
+          <main className="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-6">
+            <HeroSpline />
+            {active === 'dashboard' && <Dashboard />}
+            {active !== 'dashboard' && <TablesAndForms />}
+          </main>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default App
